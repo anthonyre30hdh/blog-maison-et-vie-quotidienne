@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Lire un article</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a href="index.html" class="btn">← Retour à l'accueil</a>
+  <div id="article"></div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get('id');
+    const articles = JSON.parse(localStorage.getItem("articles")) || [];
+
+    const article = articles.find(a => a.id == id);
+    if (article) {
+      document.getElementById("article").innerHTML = `
+        <h1>${article.titre}</h1>
+        <p><em>${article.date}</em></p>
+        <div>${article.contenu}</div>
+      `;
+    } else {
+      document.getElementById("article").innerHTML = "<p>Article introuvable.</p>";
+    }
+  </script>
+</body>
+</html>

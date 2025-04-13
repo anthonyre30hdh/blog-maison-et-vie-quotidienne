@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Créer un article</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a href="index.html" class="btn">← Retour à l'accueil</a>
+  <h1>Écrire un nouvel article</h1>
+
+  <form id="form">
+    <input type="text" id="titre" placeholder="Titre de l’article" required><br>
+    <textarea id="contenu" rows="10" placeholder="Contenu de l’article" required></textarea><br>
+    <button type="submit">Publier</button>
+  </form>
+
+  <script>
+    document.getElementById("form").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const titre = document.getElementById("titre").value;
+      const contenu = document.getElementById("contenu").value;
+      const date = new Date().toLocaleDateString("fr-FR");
+      const id = Date.now();
+
+      const article = { id, titre, contenu, date };
+      const articles = JSON.parse(localStorage.getItem("articles")) || [];
+      articles.unshift(article);
+      localStorage.setItem("articles", JSON.stringify(articles));
+
+      window.location.href = "index.html";
+    });
+  </script>
+</body>
+</html>
